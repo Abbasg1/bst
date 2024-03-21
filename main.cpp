@@ -15,6 +15,7 @@ https://www.geeksforgeeks.org/deletion-in-binary-search-tree/
 https://www.youtube.com/watch?v=pYT9F8_LFTM
 https://www.youtube.com/watch?v=mtvbVLK5xDQ
 + hash tables project from my repository
++
 */
 
 //node class
@@ -56,36 +57,33 @@ Node* root= NULL;;
 int main()
 {
     char str[30];
-    bool run = false; //controls do while
-    do 
+    //bool run = false; //controls do while
+    cout << "Enter F to use auto generation, M for manual" << endl;
+    
+    char rsp[5];
+    
+    cin>>rsp;
+    if(strcmp(rsp, "F")== 0 || strcmp(rsp, "f")== 0)
     {
-        cout << "Enter F to use auto generation, M for manual" << endl;
-        
-        char rsp[5];
-        
-        cin>>rsp;
-        if(strcmp(rsp, "F")== 0 || strcmp(rsp, "f")== 0)
-        {
-            fInput();
-            run = true;
-        }
-        else if(strcmp(rsp,"M")== 0 || strcmp(rsp,"m")== 0)
-        {
-            mInput();
-            run = true;
-        }
-        else
-        {
-            cout << "invalid/bad code"<< endl;
-        }
-    } 
-    while(!run);
+        fInput();
+        //run = true;
+    }
+    else if(strcmp(rsp,"M")== 0 || strcmp(rsp,"m")== 0)
+    {
+        mInput();
+        //run = true;
+    }
+    else
+    {
+        cout << "invalid/bad code"<< endl;
+    }
+
 
     print(root, 0);
     char cmd[5];
     //hjas to be outside, used for every cmd
     int number = 0;
-    do
+    while(true)
     {
         cout << "A for add, R for remove, P for print,S for search, Q to quit. "<< endl;
         cin >> cmd;
@@ -119,7 +117,7 @@ int main()
         {
             cout << "invalid " << endl;
         }
-    }while(true);
+    }
     
 }
 //fxns without class
@@ -289,21 +287,21 @@ void fInput()
     int num = 0;
     vector<int> nums;
 
-    while (!numbers.eof()) 
+    while (numbers >> num) 
     {
-        numbers >> num;
         nums.push_back(num);
     }
 
-    int randomIndex = 0;
     int count = 0;
-
-    while (count != 10) 
+    cout << "File found, numbers: " << endl;
+    while (count != 10 && !nums.empty()) // Ensure nums vector is not empty
     {
-        randomIndex = (rand() % 999) + 1;
+        int randomIndex = rand() % nums.size(); // Generate random index within bounds
         num = nums.at(randomIndex);
         cout << num << " ";
         insert(root, num);
+        nums.erase(nums.begin() + randomIndex); // Remove used number from vector
         count++;
     }
+    cout << endl;
 }
